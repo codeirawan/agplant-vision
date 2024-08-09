@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- Basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- Site metas -->
+      <title>AGPLANT VISION</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- Bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+      <!-- Style css -->
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+      <!-- Favicon -->
+      <link rel="icon" href="{{ url_for('static', filename='images/fevicon.png') }}" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- Owl stylesheets --> 
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+   </head>
+   <body>
+      <!-- Header section start -->
+      <div class="header_section">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="logo d-flex align-items-center">
+               <a href="{{ url_for('homepage') }}"><img src="{{ url_for('static', filename='images/logo-2.png') }}" width="80" height="80"></a>
+               <a href="{{ url_for('homepage') }}" class="logo-text text-justify text-white">
+                  A G P L A N T <br> V I S I O N
+               </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+               <div class="navbar-nav">
+                  <a class="nav-item nav-link" href="{{ url_for('homepage') }}">Home</a>
+                  <a class="nav-item nav-link" href="{{ url_for('detection_page') }}">Detection</a>
+                  <a class="nav-item nav-link" href="{{ url_for('realtime_webcam') }}">Realtime Webcam</a>
+               </div>
+            </div>
+         </nav>
+         <!-- Banner section start -->
+         <div class="banner_section layout_padding">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-6">
+                     <h1 class="banner_taital">Agri Plant Vision<br></h1>
+                     <div class="text-white" style="font-size: 40px; font-weight: 900;">Smart Plant Species Identification</div>
+                     <p class="banner_text">Transform Your Fields: Cutting-Edge Plant Species Detection for the Next Generation of Farming</p>
+                  </div>
+                  <div class="col-md-6">
+                     <div><img src="{{ url_for('static', filename='images/3d-leaf.png') }} " class="image_1"></div>
+                  </div>
+               </div>
+               <div class="custum_menu">
+                  <ul>
+                     <li class="active"><a href="{{ url_for('homepage') }}">Home</a></li>
+                     <li><a href="{{ url_for('detection_page') }}">Detection</a></li>
+                     <li><a href="{{ url_for('realtime_webcam') }}">Realtime Webcam</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <!-- Banner section end -->
+      </div>
+      <!-- Header section end -->
+
+      <!-- About section start -->
+      <div class="about_section layout_padding">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-6 col-md-12 col-sm-12">
+                  <div class="about_main">
+                     <h1 class="about_taital">About <br> AGPLANT VISION</h1>
+                     <p class="about_text">Empower your farming strategy with our state-of-the-art detection system. Effortlessly identify and manage plant species to boost productivity and optimize yields.</p>
+                     <div class="readmore_bt"><a href="#">Read More</a></div>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-12 col-sm-12 pr-4">
+                  <div class="image_7"><img src="{{ url_for('static', filename='images/about-img.png') }} "></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- About section end -->
+      
+      <div class="background-overlay">
+         <h1 class="services_taital">Species</h1>
+         <div class="card-container">
+            <div class="card">
+               <img src="https://knotweedremoval.tips/wp-content/uploads/2020/07/Japanese-knotweed-growing-just-prior-to-summer-and-before-it-blooms-scaled.jpg" alt="Sample Image">
+               <div class="card-text">Japanese Knotweed</div>
+            </div>
+            <div class="card">
+               <img src="https://cbsnews3.cbsistatic.com/hub/i/r/2011/07/06/4990386d-a643-11e2-a3f0-029118418759/thumbnail/1240x930/d7141954de6d627d5b9cdde8a474d6cb/gianthogweed.jpg" alt="Sample Image">
+               <div class="card-text">Giant Hogweed</div>
+            </div>
+            <div class="card">
+               <img src="https://th.bing.com/th/id/OIP.3_djn4J3C8vEczjfkHox5AHaFU?rs=1&pid=ImgDetMain" alt="Sample Image">
+               <div class="card-text">Bindweed</div>
+            </div>
+
+            <div class="card">
+               <img src="https://th.bing.com/th/id/OIP.AtF79VjkPX1Mjg3Y3tCrJwHaFb?rs=1&pid=ImgDetMain" alt="Sample Image">
+               <div class="card-text">Himalayan Balsam</div>
+            </div>
+            <div class="card">
+               <img src="https://i.pinimg.com/originals/a3/d8/7d/a3d87d42e7922ba220a4ef2a44f1e115.png" alt="Sample Image">
+               <div class="card-text">Ground Elder</div>
+            </div>
+            <div class="card">
+               <img src="https://balconygardenweb.b-cdn.net/wp-content/uploads/2023/04/Ophiopogon-planiscapus-Nigrescens.jpg" alt="Sample Image">
+               <div class="card-text">Black Grass</div>
+            </div>
+         </div>
+      </div>
+
+      <div class="banner_section layout_padding">   
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-6 col-md-12 col-sm-12">
+                  <div class="about_main">
+                     <h1 class="about_taital">AI Smart Solution For Farm</h1>
+                     <p class="about_text mb-3">Our AI-driven technology revolutionizes plant species identification, providing farmers with accurate and real-time data. 
+                     By leveraging advanced image and video analysis, our system can detect plant species.
+                     This innovative solution helps farmers make informed decisions, improve yields, and sustainably manage their farms.</p>
+                     <div class="list-unstyled list-check">
+                        <ul>
+                           <li>Image Analysis</li>
+                           <li>Video Analysis</li>
+                           <li>Realtime Analysis</li>
+                        </ul>
+                     </div>
+                     <div class="readmore_bt"><a href="#">Get in Touch</a></div>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-12 col-sm-12 pr-4">
+                  <div class="carousel-container mt-5">
+                     <div class="carousel">
+                     <video autoplay muted loop>
+                        <source src="{{ url_for('static', filename='images/japanese.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                     </video>
+                     <video autoplay muted loop>
+                        <source src="{{ url_for('static', filename='images/himalayan.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                     </video>
+                     <video autoplay muted loop>
+                        <source src="{{ url_for('static', filename='images/bindweed.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                     </video>
+                     </div>
+                     <button class="arrow arrow-left" onclick="prevSlide()">&#10094;</button>
+                     <button class="arrow arrow-right" onclick="nextSlide()">&#10095;</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+           
+      <!-- Footer section start --> 
+      <div class="footer_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-3 col-sm-6">
+                  <h2 class="useful_text">About</h2>
+                  <p class="ipsum_text">We are <strong style="color: #a3b104;">AGPLANT VISION</strong> ready for dedicated to transforming agriculture through advanced plant species detection technology.</p>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <h2 class="useful_text">Services</h2>
+                  <div class="footer_links">
+                     <ul>
+                        <li class="active"><a href="#">Image Detection</a></li>
+                        <li class="active"><a href="#">Video Detection</a></li>
+                        <li class="active"><a href="#">Real Time Detection</a></li>
+                        <li class="active"><a href="#">Image Segmentation</a></li>
+                        <li class="active"><a href="#">Video Segmentation</a></li>
+                        <li class="active"><a href="#">Real Time Segmentation</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <h2 class="useful_text">Species</h2>
+                  <div class="footer_links">
+                     <ul>
+                        <li class="active"><a href="#">Black Grass</a></li>
+                        <li class="active"><a href="#">Himalayan Balsam</a></li>
+                        <li class="active"><a href="#">Ground Elder</a></li>
+                        <li class="active"><a href="#">Giant Hogweed</a></li>
+                        <li class="active"><a href="#">Japanese Knotweed</a></li>
+                        <li class="active"><a href="#">Bindweed</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <h2 class="useful_text">contact us</h2>
+                  <div class="addres_link">
+                     <ul>
+                        <li><a href="#"><img src="{{ url_for('static', filename='images/map-icon.png') }}"><span class="padding_left_10">Worldwide</span></a></li>
+                        <li><a href="#"><img src="{{ url_for('static', filename='images/call-icon.png') }}"><span class="padding_left_10">+01 1234567890</span></a></li>
+                        <li><a href="#"><img src="{{ url_for('static', filename='images/mail-icon.png') }}"><span class="padding_left_10">demo@gmail.com</span></a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Footer section end -->  
+      <!-- Copyright section start -->
+      <div class="copyright_section">
+         <div class="container">
+            <p class="copyright_text">Copyright 2024 All Right Reserved By.<a href="https://html.design"> AGPLANT VISION</p>
+         </div>
+      </div>
+      <!-- Copyright section end -->    
+      <!-- Javascript files-->
+      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/jquery-3.0.0.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+      <!-- Javascript --> 
+      <script>
+         let currentIndex = 0;
+         function showSlide(index) {
+            const carousel = document.querySelector('.carousel');
+            const totalSlides = document.querySelectorAll('.carousel video').length;
+            if (index >= totalSlides) {
+            currentIndex = 0;
+            } else if (index < 0) {
+            currentIndex = totalSlides - 1;
+            } else {
+            currentIndex = index;
+            }
+            const translateX = -currentIndex * 100;
+            carousel.style.transform = `translateX(${translateX}%)`;
+         }
+
+         function nextSlide() {
+            showSlide(currentIndex + 1);
+         }
+
+         function prevSlide() {
+            showSlide(currentIndex - 1);
+         }
+
+         setInterval(nextSlide, 5000);
+      </script>
+   </body>
+</html>

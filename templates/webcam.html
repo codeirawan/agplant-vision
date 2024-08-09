@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- Basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- Site metas -->
+      <title>AGPLANT VISION</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- Bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+      <!-- Style css -->
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+      <!-- Favicon -->
+      <link rel="icon" href="{{ url_for('static', filename='images/fevicon.png') }}" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+      <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: auto; 
+        }
+
+        .Parent {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .child1 {
+            width: 50%;
+            height: 100vh;
+            background-color: #164006;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+        }
+
+        .child2 {
+            width: 50%;
+            color: green;
+            margin-top: 10px;
+        }
+
+        .header {
+            position: absolute;
+            top: 10px; 
+            right: 10px; 
+            z-index: 1000; 
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 50px;
+        }
+
+        #webcam {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            max-height: 400px;
+            margin-bottom: 20px;
+        }
+
+        #videoPlaceholder {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        #outputCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            max-width: 600px;
+            max-height: 400px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button {
+            background-color: black;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .table-container, .chart-container {
+            max-height: 300px;
+            min-height: 300px;
+            overflow: auto;
+            background-color: #F5F5DC;
+            padding: 10px;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        #myChart {
+            display: block;
+            margin: 0 auto;
+        }
+
+        #table-container, #chart-container {
+            display: none;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        #placeholderImage {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: #e0e0e0;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: green;
+            border-radius: 10px;
+        }
+
+        /* Set column widths */
+        .table-container th:nth-child(1), .table-container td:nth-child(1) {
+            width: 35%;
+        }
+
+        .table-container th:nth-child(2), .table-container td:nth-child(2) {
+            width: 20%; 
+        }
+
+        .table-container th:nth-child(3), .table-container td:nth-child(3) {
+            width: 20%; 
+        }
+
+        .table-container th:nth-child(4), .table-container td:nth-child(4) {
+            width: 20%; 
+        }
+
+        #downloadBtn {
+            display: none;
+            margin-top: 10px;
+            align-self: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        @media (max-width: 1280px) {
+            .video-container {
+                margin-top: 100px;
+            }
+
+            #image-container {
+                margin-top: 150px;
+            }
+
+            .controls {
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+
+            .table-container {
+                display: none;
+                max-height: 400px;
+                min-height: 400px;
+            }
+
+            .chart-container {
+                display: none;
+                max-height: 400px;
+                min-height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .Parent {
+                flex-direction: column;
+            }
+
+            .child1, .child2 {
+                width: 100%;
+                height: auto;
+            }
+
+            .logo {
+                margin-top: 20px;
+            }
+
+            .video-container {
+                margin-top: 50px;
+            }
+            
+            .controls {
+                margin-top: 20px;
+                margin-bottom: 50px;
+            }
+
+            .table-container {
+                overflow-x: auto;
+                margin-top: 30px;
+                max-height: 300px;
+                min-height: 300px;
+            }
+
+            .chart-container {
+                margin-top: 30px;
+                margin-bottom: 30px;
+                max-height: 300px;
+                min-height: 300px;
+            }
+
+            #myChart {
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+
+            #image-container {
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+            .Parent {
+                flex-direction: column;
+            }
+
+            .child1, .child2 {
+                width: 100%;
+                height: auto;
+            }
+
+            .logo {
+                margin-top: 20px;
+            }
+
+            .video-container {
+                margin-top: 50px;
+                max-width: 400px;
+            }
+            
+            .controls {
+                margin-top: 20px;
+                margin-bottom: 50px;
+            }
+
+            .table-container {
+                overflow-x: auto;
+                margin-top: 30px;
+                max-height: 300px;
+                min-height: 300px;
+            }
+
+            .chart-container {
+                margin-top: 30px;
+                margin-bottom: 30px;
+                max-height: 300px;
+                min-height: 300px;
+            }
+
+            #myChart {
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+
+            #image-container {
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+
+            .table-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .table-container::-webkit-scrollbar-track {
+                background: #e0e0e0;
+            }
+
+            .table-container::-webkit-scrollbar-thumb {
+                background-color: green;
+                border-radius: 10px;
+            }
+        }
+    </style>
+   </head>
+   <body>
+        <div class="Parent">
+            <div class="child1">
+                <div class="header">
+                    <a href="{{ url_for('homepage') }}" class="btn btn-light">Back</a>
+                </div>
+                <div class="logo d-flex align-items-center">
+                    <a href="{{ url_for('homepage') }}"><img src="{{ url_for('static', filename='images/logo-2.png') }}" width="80" height="80"></a>
+                    <div class="logo-text text-justify text-white">
+                        A G P L A N T <br> V I S I O N
+                    </div>
+                </div>
+                <div class="video-container">
+                    <img id="videoPlaceholder" src="{{ url_for('static', filename='images/bg-img.jpg') }}" alt="Video Placeholder">
+                    <video id="webcam" autoplay playsinline></video>
+                    <canvas id="outputCanvas"></canvas>
+                </div>
+                <div class="controls">
+                    <button id="startWebcamBtn" class="button start">🔴 Start Webcam</button>
+                    <button id="stopWebcamBtn" class="button stop" disabled>⏹️ Stop Webcam</button>
+                </div>
+            </div>
+            <div class="child2">
+                <div class="container mt-2">
+                    <div class="row">
+                        <div class="image-container" id="image-container">
+                            <img id="placeholderImage" src="{{ url_for('static', filename='images/statistic.png') }}" alt="Placeholder Image">
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">   
+                            <div class="table-container" id="table-container">   
+                                <div class="button-container">
+                                    <button id="downloadBtn" class="btn btn-success" onclick="downloadCSV()">Download Result</button>
+                                </div>                       
+                                <div id="table-result"></div>
+                            </div> 
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="chart-container" id="chart-container">
+                                <canvas id="myChart" style="display: none;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Javascript files-->
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-3.0.0.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+        <!-- Javascript --> 
+
+        <script>
+            const classNames = {
+                0: 'Bindweed',
+                1: 'Black Grass',
+                2: 'Giant Hogweed',
+                3: 'Ground Elder',
+                4: 'Himalayan Balsam',
+                5: 'Japanese Knotweed'
+            };
+            const color_map = {
+                'Japanese Knotweed': "#FF9D97",
+                'Himalayan Balsam': "#00C2FF",
+                'Bindweed': "#FF95C8",
+                'Ground Elder': "#FF3838",
+                'Giant Hogweed': "#3DDB86",
+                'Black Grass': "#2C99A8"
+            };
+            const TARGET_WIDTH = 640;
+            const TARGET_HEIGHT = 640;
+            const classData = {};
+            const classColors = color_map;
+            let model;
+            let totalObjects = 0;
+            let maxCount = 1;
+            let webcamInterval;
+
+            async function loadModel() {
+                tf.setBackend('webgl');
+                model = await tf.loadGraphModel('/static/yolov8m-detection_web_model/model.json');
+            }
+
+            async function runModel(tensor) {
+                if (!model) await loadModel();
+                return model.predict(tensor);
+            }
+
+            async function processWebcamFrame() {
+                const video = document.getElementById('webcam');
+                const tensor = await webcamToTensor(video);
+                const startTime = performance.now();
+                const predictions = await runModel(tensor);
+                const endTime = performance.now();
+                const inferenceTime = endTime - startTime;
+                console.log(`Inference Time: ${inferenceTime.toFixed(2)} ms`);
+                const detections = processPredictions(predictions, classNames);
+                await drawBoundingBoxes(video, detections);
+            }
+
+            function extractSelectedPredictions(indices, boxes, scores, labels, classNames) {
+                return indices.map(i => {
+                    const box = boxes.slice([i, 0], [1, -1]).squeeze().arraySync();
+                    const label = labels.slice([i], [1]).arraySync()[0];
+                    const confidence = scores.slice([i]).arraySync()[0];
+                    return { box, label: classNames[label], confidence };
+                });
+            }
+
+            async function webcamToTensor(videoElement) {
+                const canvas = document.createElement('canvas');
+                canvas.width = TARGET_WIDTH;
+                canvas.height = TARGET_HEIGHT;
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+                ctx.drawImage(videoElement, 0, 0, TARGET_WIDTH, TARGET_HEIGHT);
+                const imageData = ctx.getImageData(0, 0, TARGET_WIDTH, TARGET_HEIGHT);
+                const tensor = tf.browser.fromPixels(imageData);
+
+                return tf.cast(tensor, 'float32').div(tf.scalar(255)).expandDims(0);
+            }
+
+            function processPredictions(predictions, classNames) {
+                return tf.tidy(() => {
+                    const transRes = predictions.transpose([0, 2, 1]);
+                    const boxes = calculateBoundingBoxes(transRes);
+                    const [scores, labels] = calculateScoresAndLabels(transRes, classNames);
+
+                    const indices = tf.image.nonMaxSuppression(boxes, scores, predictions.shape[2], 0.45, 0.2).arraySync();
+                    return extractSelectedPredictions(indices, boxes, scores, labels, classNames);
+                });
+            }
+
+            function calculateBoundingBoxes(transRes) {
+                const [xCenter, yCenter, width, height] = [
+                    transRes.slice([0, 0, 0], [-1, -1, 1]),
+                    transRes.slice([0, 0, 1], [-1, -1, 1]),
+                    transRes.slice([0, 0, 2], [-1, -1, 1]),
+                    transRes.slice([0, 0, 3], [-1, -1, 1])
+                ];
+
+                const topLeftX = tf.sub(xCenter, tf.div(width, 2));
+                const topLeftY = tf.sub(yCenter, tf.div(height, 2));
+                return tf.concat([topLeftX, topLeftY, width, height], 2).squeeze();
+            }
+
+            function calculateScoresAndLabels(transRes) {
+                const rawScores = transRes.slice([0, 0, 4], [-1, -1, Object.keys(classNames).length]).squeeze(0);
+                return [rawScores.max(1), rawScores.argMax(1)];
+            }
+
+            function updateTable(detections) {
+                const table = document.createElement('table');
+                table.className = "table table-borderless table-responsive card-1 p-4";
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Confidence</th>
+                            <th>Width (inches)</th>
+                            <th>Height (inches)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${detections.map(({ label, box, confidence }) => {
+                            const [x, y, width, height] = box;
+                            const widthInInches = (width * 0.0393701).toFixed(2);  
+                            const heightInInches = (height * 0.0393701).toFixed(2); 
+                            return `
+                                <tr>
+                                    <td>${label}</td>
+                                    <td>${(confidence * 100).toFixed(1)}%</td>
+                                    <td>${parseFloat(widthInInches) > 0 ? widthInInches : '-'}</td>
+                                    <td>${parseFloat(heightInInches) > 0 ? heightInInches : '-'}</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                `;
+                const table_result = document.getElementById('table-result');
+                table_result.innerHTML = '';
+                table_result.appendChild(table);
+            }
+
+            Chart.register(ChartStreaming);
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [] 
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'realtime',
+                            realtime: {
+                                delay: 2000, 
+                                onRefresh: function(chart) {
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            min: 1,
+                            ticks: {
+                                callback: function(value) {
+                                    return Number.isInteger(value) ? value : null;
+                                }
+                            },
+                            suggestedMax: 10 
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true 
+                        }
+                    }
+                }
+            });
+
+            function updateChart(className, totalObjects) {
+                if (!className || totalObjects === undefined) {
+                    return; 
+                }
+                
+                if (!classData[className]) {
+                    classData[className] = [];
+                }
+                
+                classData[className].push({
+                    x: Date.now(),
+                    y: totalObjects
+                });
+                
+                chart.data.datasets = Object.keys(classData).map(className => ({
+                    label: className,
+                    data: classData[className],
+                    borderColor: color_map[className] || "#000000",
+                    backgroundColor: color_map[className] || "#000000",
+                    fill: false
+                }));
+                
+                maxCount = Math.max(maxCount, ...Object.values(classData).flat().map(d => d.y));
+                chart.options.scales.y.suggestedMax = maxCount + 1;
+                
+                chart.update(); 
+            }
+
+            async function drawBoundingBoxes(videoElement, detections) {
+                const canvas = document.getElementById('outputCanvas');
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                canvas.width = videoElement.videoWidth; 
+                canvas.height = videoElement.videoHeight; 
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height); 
+
+                const resizeScale = Math.min(TARGET_WIDTH / canvas.width, TARGET_HEIGHT / canvas.height);
+                const dx = (TARGET_WIDTH - canvas.width * resizeScale) / 2;
+                const dy = (TARGET_HEIGHT - canvas.height * resizeScale) / 2;
+
+                detections.forEach(({ box, label, confidence }) => {
+                    let [topLeftX, topLeftY, width, height] = box;
+                    topLeftX = topLeftX / resizeScale - dx / resizeScale;
+                    topLeftY = topLeftY / resizeScale - dy / resizeScale;
+                    width /= resizeScale;
+                    height /= resizeScale;
+
+                    const color = color_map[label] || 'red';
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(topLeftX, topLeftY, width, height);
+
+                    ctx.fillStyle = color;
+                    ctx.font = '20px Arial';
+
+                    const text = `${label} (${(confidence * 100).toFixed(1)}%)`;
+                    const textWidth = ctx.measureText(text).width;
+                    const textHeight = 24; 
+
+                    ctx.fillStyle = color; 
+                    ctx.fillRect(topLeftX, topLeftY - textHeight - 5, textWidth + 10, textHeight + 5);
+
+                    ctx.fillStyle = 'white'; 
+                    ctx.fillText(text, topLeftX + 5, topLeftY - 5);
+
+                    ctx.strokeStyle = 'yellow';
+                    ctx.lineWidth = 2;
+                    detections.forEach((detection2) => {
+                        const center1 = [
+                            topLeftX + width / 2,
+                            topLeftY + height / 2
+                        ];
+                        const center2 = [
+                            detection2.box[0] / resizeScale - dx / resizeScale + detection2.box[2] / resizeScale / 2,
+                            detection2.box[1] / resizeScale - dy / resizeScale + detection2.box[3] / resizeScale / 2
+                        ];
+
+                        let distancePx = Math.sqrt(
+                            Math.pow(center2[0] - center1[0], 2) +
+                            Math.pow(center2[1] - center1[1], 2)
+                        );
+
+                        let distanceInInches = (distancePx / 96).toFixed(0);
+
+                        if (distanceInInches > 0) {
+                            ctx.beginPath();
+                            ctx.moveTo(center1[0], center1[1]);
+                            ctx.lineTo(center2[0], center2[1]);
+                            ctx.stroke();
+
+                            const midPoint = [
+                                (center1[0] + center2[0]) / 2,
+                                (center1[1] + center2[1]) / 2
+                            ];
+                            ctx.fillStyle = 'white';
+                            ctx.fillText(`${distanceInInches} inches`, midPoint[0], midPoint[1]);
+                        }
+                    });
+                });
+
+                if (detections.length > 0) {
+                    const totalObjectsText = `Total Objects: ${detections.length}`;
+                    const totalTextWidth = ctx.measureText(totalObjectsText).width;
+                    const totalTextHeight = 24; 
+
+                    ctx.fillStyle = 'white'; 
+                    ctx.fillRect(10, 10, totalTextWidth + 10, totalTextHeight + 5);
+                    ctx.fillStyle = 'black'; 
+                    ctx.fillText(totalObjectsText, 15, 30);
+
+                    document.getElementById('myChart').style.display = 'flex';
+
+                    totalObjects = detections.length;
+                    detections.forEach(({ label }) => {
+                        updateChart(label, totalObjects);
+                    });
+
+                    updateTable(detections);
+                }
+            }
+
+            function downloadCSV() {
+                const table = document.querySelector('#table-result table');
+                const rows = Array.from(table.querySelectorAll('tr'));
+
+                const csvContent = rows.map(row => {
+                    const cells = Array.from(row.querySelectorAll('th, td')).map(cell => cell.textContent);
+                    return cells.join(',');
+                }).join('\n');
+
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'results.csv';
+                a.click();
+
+                URL.revokeObjectURL(url);
+            }
+
+            async function startWebcam() {
+                navigator.mediaDevices.getUserMedia({ video: {
+                        facingMode: 'environment',
+                    }, }).then(stream => {
+                    const video = document.getElementById('webcam');
+                    video.srcObject = stream;
+                    video.style.display = 'block';
+                    document.getElementById('videoPlaceholder').style.display = 'none';
+                    document.getElementById('startWebcamBtn').disabled = true;
+                    document.getElementById('stopWebcamBtn').disabled = false;
+
+                    document.getElementById('table-container').style.display = 'block';
+                    document.getElementById('chart-container').style.display = 'block';
+                    document.getElementById('image-container').style.display = 'none';
+
+                    webcamInterval = setInterval(processWebcamFrame, 100);
+                }).catch(err => {
+                    console.error('Error accessing webcam: ', err);
+                });
+            }
+
+            function stopWebcam() {
+                const video = document.getElementById('webcam');
+                const stream = video.srcObject;
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+                video.srcObject = null;
+
+                document.getElementById('videoPlaceholder').style.display = 'block';
+                document.getElementById('startWebcamBtn').disabled = false;
+                document.getElementById('stopWebcamBtn').disabled = true;
+                document.getElementById('downloadBtn').style.display = 'block';
+
+                clearInterval(webcamInterval);
+            }
+
+            document.getElementById('table-container').style.display = 'none';
+            document.getElementById('chart-container').style.display = 'none';
+            document.getElementById('startWebcamBtn').addEventListener('click', startWebcam);
+            document.getElementById('stopWebcamBtn').addEventListener('click', stopWebcam);
+
+        </script>
+   </body>
+</html>

@@ -1,0 +1,624 @@
+/*--------------------------------------------------------------------- File Name: responsive.css ---------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------- 991px x 768px ---------------------------------------------------------------------*/
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .header-search {
+        padding: 15px 0px;
+    }
+}
+
+
+/*------------------------------------------------------------------- 767px x 599px ---------------------------------------------------------------------*/
+
+@media only screen and (min-width: 599px) and (max-width: 767px) {
+    .logo {
+        text-align: center;
+    }
+    .cart-content-right {
+        padding-bottom: 5px;
+    }
+    .mg {
+        margin: 0px 0px;
+    }
+    .menu-area-main {
+        height: 256px;
+        overflow-y: auto;
+    }
+    .megamenu>.row [class*="col-"] {
+        padding: 0px;
+    }
+    .menu-area-main .megamenu .men-cat {
+        padding: 0px 15px;
+    }
+    .menu-area-main .megamenu .women-cat {
+        padding: 0px 15px;
+    }
+    .menu-area-main .megamenu .el-cat {
+        padding: 0px 15px;
+    }
+    .mean-container .mean-nav ul li a.mean-expand {
+        height: 19px;
+    }
+    .category-box.women-box {
+        display: none;
+    }
+    .cart-box {
+        display: inline-block;
+        margin: 0px 30px;
+    }
+    .wish-box {
+        float: none;
+        margin: 0px 30px;
+        display: inline-block;
+    }
+    .menu-add {
+        display: none;
+    }
+    .category-box {
+        display: none;
+    }
+    .mean-container .mean-nav ul li ol {
+        padding: 0px;
+    }
+    .mean-container .mean-nav ul li a {
+        padding: 10px 20px;
+        width: 94.8%;
+    }
+    .mean-container .mean-nav ul li li a {
+        width: 92%;
+        padding: 1em 4%;
+    }
+    .mean-container .mean-nav ul li li li a {
+        width: 100%;
+    }
+    .header-search {
+        padding: 15px 0px;
+    }
+    #collapseFilter.d-md-block {
+        padding: 30px 0px;
+    }
+}
+
+
+/*------------------------------------------------------------------- 599px x 280px ---------------------------------------------------------------------*/
+
+@media only screen and (min-width: 280px) and (max-width: 599px) {
+    .cart-content-right {
+        padding-bottom: 5px;
+    }
+    .megamenu>.row [class*="col-"] {
+        padding: 0px;
+    }
+    .menu-area-main .megamenu .men-cat {
+        padding: 0px 15px;
+    }
+    .menu-area-main .megamenu .women-cat {
+        padding: 0px 15px;
+    }
+    .menu-area-main .megamenu .el-cat {
+        padding: 0px 15px;
+    }
+    .mean-container .mean-nav ul li a {
+        padding: 1em 4%;
+        width: 92%;
+    }
+    .mean-container .mean-nav ul li li a {
+        width: 90%;
+        padding: 1em 5%;
+    }
+    .mean-container .sub-full.megamenu-categories ol li a {
+        padding: 5px 0px;
+        text-transform: capitalize;
+        width: 100%;
+    }
+    .megamenu .sub-full.megamenu-categories .women-box .banner-up-text a {
+        width: auto;
+        border: none;
+        float: none;
+    }
+    .menu-area-main {
+        height: 45px;
+        overflow-y: auto;
+    }
+    .mean-container .mean-nav ul li a.mean-expand {
+        top: 0;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .logo {
+        width: 80%;
+    }
+    .header_section {
+        background-size: cover;
+    }
+    .banner_taital {
+        width: 100%;
+        font-size: 48px;
+    }
+    .services_section {
+        width: 85%;
+    }
+    .services_section_3 {
+        display: inline-block;
+        padding: 0;
+    }
+    .about_taital {
+        padding-top: 50px;
+    }
+    .about_main {
+        padding-left: 16px;
+    }
+    .resources_main {
+        padding-left: 16px;
+    }
+    .resources_taital {
+        font-size: 30px;
+        padding-top: 50px;
+    }
+    .newsletter_main {
+        padding-left: 16px;
+    }
+    .newsletter_taital {
+        font-size: 30px;
+    }
+    .image_12 {
+        padding-top: 40px;
+    }
+    .mail_main {
+        padding: 20px 0px 40px 16px;
+    }
+    .image_13 {
+        height: 400px;
+    }
+    .ipsum_text {
+        width: 100%;
+    }
+    #my_slider a.carousel-control-prev {
+        position: absolute;
+        left: 200px;
+        top: 83%;
+    }
+    #my_slider a.carousel-control-next {
+        position: absolute;
+        right: 200px;
+        top: 83%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #main_slider a.carousel-control-prev {
+        position: absolute;
+        left: 175px;
+        top: 90%;
+        display: none;
+    }
+    #main_slider a.carousel-control-next {
+        position: absolute;
+        left: 236px;
+        top: 90%;
+        display: none;
+    }
+    .navbar-expand-lg .navbar-nav {
+        display: block;
+    }
+    .navbar-light .navbar-nav .nav-link {
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .navbar-light .navbar-nav .nav-link:focus,
+    .navbar-light .navbar-nav .nav-link:hover {
+        color: #fff;
+        background-color: #a3b104;
+        border-radius: 4px;
+    }
+    .navbar-toggler {
+        background-color: #fff !important;
+        border: 1px solid #ffffff;
+    }
+    .header_section {
+        background-size: cover;
+    }
+    .login_menu {
+        display: none;
+    }
+    .logo {
+        width: 30%;
+    }
+    .banner_taital {
+        width: 100%;
+        font-size: 36px;
+        padding-top: 0px;
+    }
+    .banner_section {
+        padding-top: 50px;
+    }
+    .image_1 {
+        width: 100%;
+        float: left;
+        text-align: center;
+        padding-top: 0px;
+    }
+    .custum_menu {
+        display: none;
+    }
+    .services_section {
+        width: 100%;
+    }
+    .services_section_3 {
+        display: inline-block;
+        padding-top: 0px;
+    }
+    .about_main {
+        padding-left: 0;
+    }
+    .about_taital {
+        font-size: 30px;
+        padding-top: 50px;
+    }
+    .image_7 {
+        padding-top: 30px;
+    }
+    .resources_main {
+        padding-left: 0px;
+    }
+    .resources_taital {
+        font-size: 27px;
+        padding-top: 25px;
+    }
+    .resources_taital_1 {
+        font-size: 14px;
+    }
+    .readmore_bt_1 {
+        margin-top: 20px;
+    }
+    .choose_taital {
+        font-size: 30px;
+    }
+    .choose_text {
+        width: 100%;
+    }
+    .icon_1 {
+        margin-top: 20px;
+    }
+    .farm_text {
+        font-size: 19px;
+    }
+    .dummy_text {
+        width: 100%;
+    }
+    .choose_section_2 {
+        padding-top: 60px;
+    }
+    .box_main {
+        margin-top: 20px;
+    }
+    .newsletter_section {
+        background-size: cover;
+    }
+    .image_12 {
+        padding-top: 180px;
+    }
+    .newsletter_main {
+        padding-left: 0px;
+    }
+    .newsletter_taital {
+        font-size: 24px;
+    }
+    .subscribe_bt {
+        width: 170px;
+    }
+    .siaalya_text {
+        padding-top: 30px;
+    }
+    .client_section_2 {
+        padding-top: 50px;
+    }
+    #my_slider a.carousel-control-prev {
+        position: absolute;
+        left: 130px;
+        top: 83%;
+    }
+    #my_slider a.carousel-control-next {
+        position: absolute;
+        right: 130px;
+        top: 83%;
+    }
+    .contact_text {
+        font-size: 30px;
+    }
+    .image_13 {
+        width: 100%;
+        float: left;
+        height: 400px;
+    }
+    .mail_main {
+        padding: 40px 0px 40px 0px;
+    }
+    .footer_section {
+        padding-top: 60px;
+    }
+    .useful_text {
+        padding-top: 30px;
+    }
+    .image_9 {
+        width: 100%;
+        float: left;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    #main_slider a.carousel-control-prev {
+        position: absolute;
+        left: 175px;
+        top: 90%;
+        display: none;
+    }
+    #main_slider a.carousel-control-next {
+        position: absolute;
+        left: 236px;
+        top: 90%;
+        display: none;
+    }
+    .navbar-expand-lg .navbar-nav {
+        display: block;
+    }
+    .navbar-light .navbar-nav .nav-link {
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .navbar-light .navbar-nav .nav-link:focus,
+    .navbar-light .navbar-nav .nav-link:hover {
+        color: #fff;
+        background-color: #a3b104;
+        border-radius: 4px;
+    }
+    .navbar-toggler {
+        background-color: #fff !important;
+        border: 1px solid #ffffff;
+    }
+    .header_section {
+        background-size: cover;
+    }
+    .login_menu {
+        display: none;
+    }
+    .logo {
+        width: 30%;
+    }
+    .banner_taital {
+        width: 100%;
+        font-size: 30px;
+        padding-top: 0px;
+    }
+    .banner_section {
+        padding-top: 50px;
+    }
+    .image_1 {
+        width: 100%;
+        float: left;
+        text-align: center;
+        padding-top: 50px;
+    }
+    .custum_menu {
+        display: none;
+    }
+    .services_section {
+        width: 100%;
+    }
+    .services_section_3 {
+        width: 100%;
+        float: left;
+    }
+    .about_main {
+        padding-left: 0;
+    }
+    .about_taital {
+        font-size: 30px;
+        padding-top: 0px;
+    }
+    .image_7 {
+        padding-top: 30px;
+    }
+    .resources_main {
+        padding-left: 0px;
+    }
+    .resources_taital {
+        font-size: 30px;
+        padding-top: 90px;
+    }
+    .image_8 {
+        padding-top: 30px;
+    }
+    .choose_taital {
+        font-size: 30px;
+    }
+    .choose_text {
+        width: 100%;
+    }
+    .icon_1 {
+        margin-top: 20px;
+    }
+    .choose_section_2 {
+        padding-top: 60px;
+    }
+    .box_main {
+        margin-top: 20px;
+    }
+    .newsletter_section {
+        background-size: cover;
+    }
+    .newsletter_main {
+        padding-left: 0px;
+    }
+    .newsletter_taital {
+        font-size: 30px;
+    }
+    .subscribe_bt {
+        width: 170px;
+    }
+    .siaalya_text {
+        padding-top: 30px;
+    }
+    .client_section_2 {
+        padding-top: 50px;
+    }
+    .contact_text {
+        font-size: 30px;
+    }
+    .mail_main {
+        padding: 40px 0px 40px 0px;
+    }
+    .footer_section {
+        padding-top: 60px;
+    }
+    .useful_text {
+        padding-top: 30px;
+    }
+    .image_9 {
+        width: 100%;
+        float: left;
+    }
+}
+
+@media (max-width: 575px) {
+    #main_slider a.carousel-control-prev {
+        position: absolute;
+        left: 175px;
+        top: 90%;
+        display: none;
+    }
+    #main_slider a.carousel-control-next {
+        position: absolute;
+        left: 236px;
+        top: 90%;
+        display: none;
+    }
+    .navbar-expand-lg .navbar-nav {
+        display: block;
+    }
+    .navbar-light .navbar-nav .nav-link {
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .navbar-light .navbar-nav .nav-link:focus,
+    .navbar-light .navbar-nav .nav-link:hover {
+        color: #fff;
+        background-color: #a3b104;
+        border-radius: 4px;
+    }
+    .navbar-toggler {
+        background-color: #fff !important;
+        border: 1px solid #ffffff;
+    }
+    .header_section {
+        background-size: cover;
+    }
+    .login_menu {
+        display: none;
+    }
+    .logo {
+        width: 30%;
+    }
+    .banner_taital {
+        width: 100%;
+        font-size: 30px;
+        padding-top: 0px;
+    }
+    .banner_section {
+        padding-top: 50px;
+    }
+    .image_1 {
+        width: 100%;
+        float: left;
+        text-align: center;
+        padding-top: 50px;
+    }
+    .custum_menu {
+        display: none;
+    }
+    .services_section {
+        width: 100%;
+    }
+    .services_section_3 {
+        width: 100%;
+        float: left;
+    }
+    .about_main {
+        padding-left: 0;
+    }
+    .about_taital {
+        font-size: 30px;
+        padding-top: 0px;
+    }
+    .image_7 {
+        padding-top: 30px;
+    }
+    .resources_main {
+        padding-left: 0px;
+    }
+    .resources_taital {
+        font-size: 30px;
+        padding-top: 90px;
+    }
+    .image_8 {
+        padding-top: 30px;
+    }
+    .choose_taital {
+        font-size: 30px;
+    }
+    .choose_text {
+        width: 100%;
+    }
+    .icon_1 {
+        margin-top: 20px;
+    }
+    .choose_section_2 {
+        padding-top: 60px;
+    }
+    .box_main {
+        margin-top: 20px;
+    }
+    .newsletter_section {
+        background-size: cover;
+    }
+    .newsletter_main {
+        padding-left: 0px;
+    }
+    .newsletter_taital {
+        font-size: 30px;
+    }
+    .subscribe_bt {
+        width: 170px;
+    }
+    .siaalya_text {
+        padding-top: 30px;
+    }
+    .client_section_2 {
+        padding-top: 50px;
+    }
+    .contact_text {
+        font-size: 30px;
+    }
+    .mail_main {
+        padding: 40px 0px 40px 0px;
+    }
+    .footer_section {
+        padding-top: 60px;
+    }
+    .useful_text {
+        padding-top: 30px;
+    }
+    .image_9 {
+        width: 100%;
+        float: left;
+    }
+}
