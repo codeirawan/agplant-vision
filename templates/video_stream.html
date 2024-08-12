@@ -1,803 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <!-- Basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- Site metas -->
-      <title>AGPLANT VISION</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- Bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-      <!-- Style css -->
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
-      <!-- Favicon -->
-      <link rel="icon" href="{{ url_for('static', filename='images/fevicon.png') }}" type="image/gif" />
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <!-- owl stylesheets --> 
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
-      <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: auto; 
-        }
 
-        .Parent {
-            display: flex;
-            flex-direction: row;
-        }
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- Site metas -->
+    <title>AGPLANT VISION</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Style css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/fevicon.png') }}" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/video-stream.css') }}">
+</head>
 
-        .child1 {
-            width: 50%;
-            height: 100vh;
-            background-color: #164006;
-            text-align: center;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            position: relative;
-        }
-
-        .child2 {
-            width: 50%;
-            color: green;
-            margin-top: 10px;
-        }
-
-        .header {
-            position: absolute;
-            top: 10px; 
-            right: 10px; 
-            z-index: 1000; 
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-top: 50px;
-        }
-
-        .video-container img {
-            width: 100%;
-            max-width: 600px;
-            max-height: 400px;
-            margin-bottom: 20px;
-        }
-
-        #videoElement {
-            display: none; 
-        }
-
-        #videoPlaceholder {
-            display: block;
-            width: 100%;
-            max-width: 600px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        #outputCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 10;
-            pointer-events: none; 
-        }
-
-        .controls {
-            position: fixed; 
-            bottom: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            z-index: 1000;
-        }
-
-        .button {
-            background-color: black;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        .button:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-
-        .button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .table-container, .chart-container {
-            max-height: 300px;
-            min-height: 300px;
-            overflow: auto;
-            background-color: #F5F5DC;
-            padding: 10px;
-        }
-
-        .chart-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-
-        #myChart {
-            display: block;
-            margin: 0 auto;
-        }
-
-        #table-container, #chart-container {
-            display: none;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-        }
-
-        #placeholderImage {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .table-container::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .table-container::-webkit-scrollbar-track {
-            background: #e0e0e0;
-        }
-
-        .table-container::-webkit-scrollbar-thumb {
-            background-color: green;
-            border-radius: 10px;
-        }
-
-        /* Set column widths */
-        .table-container th:nth-child(1), .table-container td:nth-child(1) {
-            width: 35%;
-        }
-
-        .table-container th:nth-child(2), .table-container td:nth-child(2) {
-            width: 20%; 
-        }
-
-        .table-container th:nth-child(3), .table-container td:nth-child(3) {
-            width: 20%; 
-        }
-
-        .table-container th:nth-child(4), .table-container td:nth-child(4) {
-            width: 20%; 
-        }
-
-        #downloadBtn {
-            display: none;
-            margin-top: 10px;
-            align-self: center;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        #loadingOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.5);
-            display: none; 
-            justify-content: center;
-            align-items: center;
-            z-index: 1000; 
-        }
-
-        #loadingOverlay img {
-            width: 150px; 
-            height: 150px; 
-        }
-
-        @media (max-width: 1280px) {
-            .video-container {
-                margin-top: 100px;
-            }
-
-            #image-container {
-                margin-top: 150px;
-            }
-
-            .controls {
-                margin-top: 50px;
-                margin-bottom: 50px;
-            }
-
-            .table-container {
-                display: none;
-                max-height: 400px;
-                min-height: 400px;
-            }
-
-            .chart-container {
-                display: none;
-                max-height: 400px;
-                min-height: 400px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .Parent {
-                flex-direction: column;
-            }
-
-            .child1, .child2 {
-                width: 100%;
-                height: auto;
-            }
-
-            .logo {
-                margin-top: 20px;
-            }
-
-            .video-container {
-                margin-top: 50px;
-            }
-            
-            .controls {
-                margin-top: 20px;
-                margin-bottom: 50px;
-            }
-
-            .table-container {
-                overflow-x: auto;
-                margin-top: 30px;
-                max-height: 300px;
-                min-height: 300px;
-            }
-
-            .chart-container {
-                margin-top: 30px;
-                margin-bottom: 30px;
-                max-height: 300px;
-                min-height: 300px;
-            }
-
-            #myChart {
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
-
-            #image-container {
-                margin-top: 50px;
-                margin-bottom: 50px;
-            }
-
-        }
-
-        @media (max-width: 480px) {
-            .Parent {
-                flex-direction: column;
-            }
-
-            .child1, .child2 {
-                width: 100%;
-                height: auto;
-            }
-
-            .logo {
-                margin-top: 20px;
-            }
-
-            .video-container {
-                margin-top: 50px;
-                max-width: 400px;
-            }
-            
-            .controls {
-                margin-top: 20px;
-                margin-bottom: 50px;
-            }
-
-            .table-container {
-                overflow-x: auto;
-                margin-top: 30px;
-                max-height: 300px;
-                min-height: 300px;
-            }
-
-            .chart-container {
-                margin-top: 30px;
-                margin-bottom: 30px;
-                max-height: 300px;
-                min-height: 300px;
-            }
-
-            #myChart {
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
-
-            #image-container {
-                margin-top: 50px;
-                margin-bottom: 50px;
-            }
-            
-            .table-container::-webkit-scrollbar {
-                width: 8px;
-            }
-
-            .table-container::-webkit-scrollbar-track {
-                background: #e0e0e0;
-            }
-
-            .table-container::-webkit-scrollbar-thumb {
-                background-color: green;
-                border-radius: 10px;
-            }
-        }
-    </style>
-   </head>
-   <body>
-        <div class="Parent">
-            <div id="loadingOverlay">
+<body>
+    <div class="Parent">
+        <div class="child1">
+            <div class="loadingOverlay" id="loadingOverlayChild1">
                 <img src="{{ url_for('static', filename='images/loader.gif') }}" alt="Loading...">
             </div>
-            <div class="child1">
-                <div class="header">
-                    <a href="{{ url_for('homepage') }}" class="btn btn-light" onclick="clearCache()">Back</a>
-                </div>
-                <div class="logo d-flex align-items-center">
-                    <a href="{{ url_for('homepage') }}"><img src="{{ url_for('static', filename='images/logo-2.png') }}" width="80" height="80"></a>
-                    <div class="logo-text text-justify text-white">
-                        A G P L A N T <br> V I S I O N
-                    </div>
-                </div>
-                <div class="video-container">
-                    <img id="videoPlaceholder" src="{{ url_for('static', filename='images/bg-img.jpg') }}" alt="Video Placeholder">
-                    <img class="center" id="videoElement" />
-                    <canvas id="outputCanvas" style="position: absolute; top: 0; left: 0;"></canvas>
-                </div>
-                <div class="controls">
-                    <label for="turn_off" class="form-label">Show Stream</label><br>
-                    <label class="switch">
-                        <input id="turn_off" type="checkbox" onchange="toggleStream()"/>
-                        <span class="slider round" id="slider"></span>
-                    </label>
+            <div class="header">
+                <a href="{{ url_for('homepage') }}" class="btn btn-light" onclick="clearCache()">Back</a>
+            </div>
+            <div class="logo d-flex align-items-center">
+                <a href="{{ url_for('homepage') }}"><img src="{{ url_for('static', filename='images/logo-2.png') }}"
+                        width="80" height="80"></a>
+                <div class="logo-text text-justify text-white">
+                    A G P L A N T <br> V I S I O N
                 </div>
             </div>
-            <div class="child2">
-                <div class="container mt-2">
-                    <div class="row">
-                        <div class="image-container" id="image-container">
-                            <img id="placeholderImage" src="{{ url_for('static', filename='images/statistic.png') }}" alt="Placeholder Image">
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">   
-                            <div class="table-container" id="table-container">   
-                                <div class="button-container">
-                                    <button id="downloadBtn" class="btn btn-success" onclick="downloadCSV()">Download Result</button>
-                                </div>                       
-                                <div id="table-result"></div>
-                            </div> 
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="chart-container" id="chart-container">
-                                <canvas id="myChart" style="display: none;"></canvas>
+            <div class="video-container">
+                <img id="videoPlaceholder" src="{{ url_for('static', filename='images/bg-img.jpg') }}"
+                    alt="Video Placeholder">
+                <img class="center" id="videoElement" />
+                <canvas id="outputCanvas" style="position: absolute; top: 0; left: 0;"></canvas>
+            </div>
+            <div class="controls">
+                <label for="turn_off" class="form-label">Show Stream</label><br>
+                <label class="switch">
+                    <input id="turn_off" type="checkbox" onchange="toggleStream()" />
+                    <span class="slider round" id="slider"></span>
+                </label>
+            </div>
+        </div>
+        <div class="child2">
+            <div class="loadingOverlay" id="loadingOverlayChild2">
+                <img src="{{ url_for('static', filename='images/loader.gif') }}" alt="Loading...">
+            </div>
+            <div class="container mt-2">
+                <div class="row">
+                    <div class="image-container" id="image-container">
+                        <img id="placeholderImage" src="{{ url_for('static', filename='images/statistic.png') }}"
+                            alt="Placeholder Image">
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="table-container" id="table-container">
+                            <div class="button-container">
+                                <button id="downloadBtn" class="btn btn-success" onclick="downloadCSV()">Download
+                                    Result</button>
                             </div>
+                            <div id="table-result"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="chart-container" id="chart-container">
+                            <canvas id="myChart" style="display: none;"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Javascript files-->
-        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery-3.0.0.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
-        <!-- Javascript --> 
+    </div>
+    <!-- Javascript files-->
+    <!-- <script src="{{ url_for('static', filename='js/video-stream.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.0.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script>
+        const classNames = {
+            0: 'Bindweed',
+            1: 'Black Grass',
+            2: 'Giant Hogweed',
+            3: 'Ground Elder',
+            4: 'Himalayan Balsam',
+            5: 'Japanese Knotweed'
+        };
+        const color_map = {
+            'Japanese Knotweed': "#FF9D97",
+            'Himalayan Balsam': "#00C2FF",
+            'Bindweed': "#FF95C8",
+            'Ground Elder': "#FF3838",
+            'Giant Hogweed': "#3DDB86",
+            'Black Grass': "#2C99A8"
+        };
+        const TARGET_WIDTH = 640;
+        const TARGET_HEIGHT = 640;
+        const classData = {};
+        const classColors = color_map;
+        let model;
+        let totalObjects = 0;
+        let maxCount = 1;
+        let isProcessing = false;
+        let processingInterval;
 
-        <script>
-            const classNames = {
-                0: 'Bindweed',
-                1: 'Black Grass',
-                2: 'Giant Hogweed',
-                3: 'Ground Elder',
-                4: 'Himalayan Balsam',
-                5: 'Japanese Knotweed'
-            };
-            const color_map = {
-                'Japanese Knotweed': "#FF9D97",
-                'Himalayan Balsam': "#00C2FF",
-                'Bindweed': "#FF95C8",
-                'Ground Elder': "#FF3838",
-                'Giant Hogweed': "#3DDB86",
-                'Black Grass': "#2C99A8"
-            };
-            const TARGET_WIDTH = 640;
-            const TARGET_HEIGHT = 640;
-            const classData = {};
-            const classColors = color_map;
-            let model;
-            let totalObjects = 0;
-            let maxCount = 1;
-            let isProcessing = false; 
-            let processingInterval; 
+        async function loadModel() {
+            tf.setBackend('webgl');
+            model = await tf.loadGraphModel('/static/yolov8m-detection_web_model/model.json');
+        }
 
-            async function loadModel() {
-                tf.setBackend('webgl');
-                model = await tf.loadGraphModel('/static/yolov8m-detection_web_model/model.json');
-            }
+        async function runModel(tensor) {
+            if (!model) await loadModel();
+            return model.predict(tensor);
+        }
 
-            async function runModel(tensor) {
-                if (!model) await loadModel();
-                return model.predict(tensor);
-            }
+        async function processImage() {
+            try {
+                const img = document.getElementById('videoElement');
+                if (!img) throw new Error("Image element not found");
 
-            async function processImage() {
-                try {
-                    const img = document.getElementById('videoElement');
-                    if (!img) throw new Error("Image element not found");
+                const tensor = await imageToTensor(img);
+                const startTime = performance.now();
+                const predictions = await runModel(tensor);
+                const endTime = performance.now();
+                const inferenceTime = endTime - startTime;
+                // console.log(`Inference Time: ${inferenceTime.toFixed(2)} ms`);
 
-                    const tensor = await imageToTensor(img);
-                    const startTime = performance.now();
-                    const predictions = await runModel(tensor);
-                    const endTime = performance.now();
-                    const inferenceTime = endTime - startTime;
-                    console.log(`Inference Time: ${inferenceTime.toFixed(2)} ms`);
-
-                    if (predictions) {
-                        const detections = processPredictions(predictions, classNames);
-                        await drawBoundingBoxes(img, detections);
-                    } else {
-                        console.warn("No predictions received");
-                    }
-                } catch (error) {
-                    console.error("Error processing image:", error);
+                if (predictions) {
+                    const detections = processPredictions(predictions, classNames);
+                    await drawBoundingBoxes(img, detections);
+                } else {
+                    console.warn("No predictions received");
                 }
+            } catch (error) {
+                console.error("Error processing image:", error);
+            }
+        }
+
+        async function imageToTensor(imageElement) {
+            const canvas = document.createElement('canvas');
+            canvas.width = TARGET_WIDTH;
+            canvas.height = TARGET_HEIGHT;
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+            ctx.drawImage(imageElement, 0, 0, TARGET_WIDTH, TARGET_HEIGHT);
+            const imageData = ctx.getImageData(0, 0, TARGET_WIDTH, TARGET_HEIGHT);
+            const tensor = tf.browser.fromPixels(imageData);
+
+            return tf.cast(tensor, 'float32').div(tf.scalar(255)).expandDims(0);
+        }
+
+        function processPredictions(predictions, classNames) {
+            return tf.tidy(() => {
+                const transRes = predictions.transpose([0, 2, 1]);
+                const boxes = calculateBoundingBoxes(transRes);
+                const [scores, labels] = calculateScoresAndLabels(transRes);
+
+                const indices = tf.image.nonMaxSuppression(boxes, scores, predictions.shape[2], 0.45, 0.2).arraySync();
+                return extractSelectedPredictions(indices, boxes, scores, labels, classNames);
+            });
+        }
+
+        function calculateBoundingBoxes(transRes) {
+            const [xCenter, yCenter, width, height] = [
+                transRes.slice([0, 0, 0], [-1, -1, 1]),
+                transRes.slice([0, 0, 1], [-1, -1, 1]),
+                transRes.slice([0, 0, 2], [-1, -1, 1]),
+                transRes.slice([0, 0, 3], [-1, -1, 1])
+            ];
+
+            const topLeftX = tf.sub(xCenter, tf.div(width, 2));
+            const topLeftY = tf.sub(yCenter, tf.div(height, 2));
+            return tf.concat([topLeftX, topLeftY, width, height], 2).squeeze();
+        }
+
+        function calculateScoresAndLabels(transRes) {
+            const rawScores = transRes.slice([0, 0, 4], [-1, -1, Object.keys(classNames).length]).squeeze(0);
+            return [rawScores.max(1), rawScores.argMax(1)];
+        }
+
+        function extractSelectedPredictions(indices, boxes, scores, labels, classNames) {
+            return indices.map(i => {
+                const box = boxes.slice([i, 0], [1, -1]).squeeze().arraySync();
+                const label = labels.slice([i], [1]).arraySync()[0];
+                const confidence = scores.slice([i]).arraySync()[0];
+                return { box, label: classNames[label], confidence };
+            });
+        }
+
+        function updateTable(detections) {
+            if (!detections || detections.length === 0) {
+                console.warn("No detections to display");
+                return;
             }
 
-            async function imageToTensor(imageElement) {
-                const canvas = document.createElement('canvas');
-                canvas.width = TARGET_WIDTH;
-                canvas.height = TARGET_HEIGHT;
-                const ctx = canvas.getContext('2d', { willReadFrequently: true });
-
-                ctx.drawImage(imageElement, 0, 0, TARGET_WIDTH, TARGET_HEIGHT);
-                const imageData = ctx.getImageData(0, 0, TARGET_WIDTH, TARGET_HEIGHT);
-                const tensor = tf.browser.fromPixels(imageData);
-
-                return tf.cast(tensor, 'float32').div(tf.scalar(255)).expandDims(0);
+            const table = document.createElement('table');
+            table.className = "table table-borderless table-responsive card-1 p-4";
+            table.innerHTML = `
+    <thead>
+        <tr>
+            <th>Class</th>
+            <th>Confidence</th>
+            <th>Width (inches)</th>
+            <th>Height (inches)</th>
+        </tr>
+    </thead>
+    <tbody>
+        ${detections.map(({ label, box, confidence }) => {
+                const [x, y, width, height] = box;
+                const widthInInches = (width * 0.0393701).toFixed(2);
+                const heightInInches = (height * 0.0393701).toFixed(2);
+                return `
+                <tr>
+                    <td>${label}</td>
+                    <td>${(confidence * 100).toFixed(1)}%</td>
+                    <td>${parseFloat(widthInInches) > 0 ? widthInInches : '-'}</td>
+                    <td>${parseFloat(heightInInches) > 0 ? heightInInches : '-'}</td>
+                </tr>
+            `;
+            }).join('')}
+    </tbody>
+    `;
+            const tableResult = document.getElementById('table-result');
+            if (!tableResult) {
+                console.error("Element with id 'table-result' not found");
+                return;
             }
 
-            function processPredictions(predictions, classNames) {
-                return tf.tidy(() => {
-                    const transRes = predictions.transpose([0, 2, 1]);
-                    const boxes = calculateBoundingBoxes(transRes);
-                    const [scores, labels] = calculateScoresAndLabels(transRes);
+            tableResult.innerHTML = '';  // Clear any existing content
+            tableResult.appendChild(table);
+        }
 
-                    const indices = tf.image.nonMaxSuppression(boxes, scores, predictions.shape[2], 0.45, 0.2).arraySync();
-                    return extractSelectedPredictions(indices, boxes, scores, labels, classNames);
-                });
-            }
 
-            function calculateBoundingBoxes(transRes) {
-                const [xCenter, yCenter, width, height] = [
-                    transRes.slice([0, 0, 0], [-1, -1, 1]),
-                    transRes.slice([0, 0, 1], [-1, -1, 1]),
-                    transRes.slice([0, 0, 2], [-1, -1, 1]),
-                    transRes.slice([0, 0, 3], [-1, -1, 1])
-                ];
+        Chart.register(ChartStreaming);
 
-                const topLeftX = tf.sub(xCenter, tf.div(width, 2));
-                const topLeftY = tf.sub(yCenter, tf.div(height, 2));
-                return tf.concat([topLeftX, topLeftY, width, height], 2).squeeze();
-            }
+        const ctx = document.getElementById('myChart').getContext('2d');
 
-            function calculateScoresAndLabels(transRes) {
-                const rawScores = transRes.slice([0, 0, 4], [-1, -1, Object.keys(classNames).length]).squeeze(0);
-                return [rawScores.max(1), rawScores.argMax(1)];
-            }
-
-            function extractSelectedPredictions(indices, boxes, scores, labels, classNames) {
-                return indices.map(i => {
-                    const box = boxes.slice([i, 0], [1, -1]).squeeze().arraySync();
-                    const label = labels.slice([i], [1]).arraySync()[0];
-                    const confidence = scores.slice([i]).arraySync()[0];
-                    return { box, label: classNames[label], confidence };
-                });
-            }
-
-            function updateTable(detections) {
-                const table = document.createElement('table');
-                table.className = "table table-borderless table-responsive card-1 p-4";
-                table.innerHTML = `
-                    <thead>
-                        <tr>
-                            <th>Class</th>
-                            <th>Confidence</th>
-                            <th>Width (inches)</th>
-                            <th>Height (inches)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${detections.map(({ label, box, confidence }) => {
-                            const [x, y, width, height] = box;
-                            const widthInInches = (width * 0.0393701).toFixed(2);  
-                            const heightInInches = (height * 0.0393701).toFixed(2); 
-                            return `
-                                <tr>
-                                    <td>${label}</td>
-                                    <td>${(confidence * 100).toFixed(1)}%</td>
-                                    <td>${parseFloat(widthInInches) > 0 ? widthInInches : '-'}</td>
-                                    <td>${parseFloat(heightInInches) > 0 ? heightInInches : '-'}</td>
-                                </tr>
-                            `;
-                        }).join('')}
-                    </tbody>
-                `;
-                const table_result = document.getElementById('table-result');
-                table_result.innerHTML = '';
-                table_result.appendChild(table);
-            }
-
-            Chart.register(ChartStreaming);
-
-            const ctx = document.getElementById('myChart').getContext('2d');
-
-            const chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    datasets: [] 
-                },
-                options: {
-                    scales: {
-                        x: {
-                            type: 'realtime',
-                            realtime: {
-                                delay: 2000, 
-                                onRefresh: function(chart) {
-                                }
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: []
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'realtime',
+                        realtime: {
+                            delay: 2000,
+                            onRefresh: function (chart) {
                             }
-                        },
-                        y: {
-                            beginAtZero: false,
-                            min: 1,
-                            ticks: {
-                                callback: function(value) {
-                                    return Number.isInteger(value) ? value : null;
-                                }
-                            },
-                            suggestedMax: 10 
                         }
                     },
-                    plugins: {
-                        legend: {
-                            display: true 
-                        }
+                    y: {
+                        beginAtZero: false,
+                        min: 1,
+                        ticks: {
+                            callback: function (value) {
+                                return Number.isInteger(value) ? value : null;
+                            }
+                        },
+                        suggestedMax: 10
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true
                     }
                 }
+            }
+        });
+
+        function updateChart(className, totalObjects) {
+            if (!className || totalObjects === undefined) {
+                return;
+            }
+
+            if (!classData[className]) {
+                classData[className] = [];
+            }
+
+            classData[className].push({
+                x: Date.now(),
+                y: totalObjects
             });
 
-            function updateChart(className, totalObjects) {
-                if (!className || totalObjects === undefined) {
-                    return; 
-                }
+            chart.data.datasets = Object.keys(classData).map(className => ({
+                label: className,
+                data: classData[className],
+                borderColor: color_map[className] || "#000000",
+                backgroundColor: color_map[className] || "#000000",
+                fill: false
+            }));
 
-                if (!classData[className]) {
-                    classData[className] = [];
-                }
-                
-                classData[className].push({
-                    x: Date.now(),
-                    y: totalObjects
-                });
-                
-                chart.data.datasets = Object.keys(classData).map(className => ({
-                    label: className,
-                    data: classData[className],
-                    borderColor: color_map[className] || "#000000",
-                    backgroundColor: color_map[className] || "#000000",
-                    fill: false
-                }));
-                
-                maxCount = Math.max(maxCount, ...Object.values(classData).flat().map(d => d.y));
-                chart.options.scales.y.suggestedMax = maxCount + 1;
-                
-                chart.update(); 
-            }
+            maxCount = Math.max(maxCount, ...Object.values(classData).flat().map(d => d.y));
+            chart.options.scales.y.suggestedMax = maxCount + 1;
 
-            async function drawBoundingBoxes(imageElement, detections) {
-                const canvas = document.getElementById('outputCanvas');
-                const ctx = canvas.getContext('2d', { willReadFrequently: true });
-                canvas.width = imageElement.width; 
-                canvas.height = imageElement.height; 
-                
-                ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                ctx.drawImage(imageElement, 0, 0, canvas.width, canvas.height); 
+            chart.update();
+        }
 
-                const resizeScale = Math.min(TARGET_WIDTH / canvas.width, TARGET_HEIGHT / canvas.height);
-                const dx = (TARGET_WIDTH - canvas.width * resizeScale) / 2;
-                const dy = (TARGET_HEIGHT - canvas.height * resizeScale) / 2;
+        async function drawBoundingBoxes(imageElement, detections) {
+            const canvas = document.getElementById('outputCanvas');
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            canvas.width = imageElement.width;
+            canvas.height = imageElement.height;
 
-                detections.forEach(({ box, label, confidence }) => {
-                    let [topLeftX, topLeftY, width, height] = box;
-                    topLeftX = topLeftX / resizeScale - dx / resizeScale;
-                    topLeftY = topLeftY / resizeScale - dy / resizeScale;
-                    width /= resizeScale;
-                    height /= resizeScale;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(imageElement, 0, 0, canvas.width, canvas.height);
 
-                    const color = color_map[label] || 'red';
-                    ctx.strokeStyle = color;
-                    ctx.lineWidth = 2;
-                    ctx.strokeRect(topLeftX, topLeftY, width, height);
+            const resizeScale = Math.min(TARGET_WIDTH / canvas.width, TARGET_HEIGHT / canvas.height);
+            const dx = (TARGET_WIDTH - canvas.width * resizeScale) / 2;
+            const dy = (TARGET_HEIGHT - canvas.height * resizeScale) / 2;
 
-                    ctx.fillStyle = color;
-                    ctx.font = '20px Arial';
+            detections.forEach(({ box, label, confidence }) => {
+                let [topLeftX, topLeftY, width, height] = box;
+                topLeftX = topLeftX / resizeScale - dx / resizeScale;
+                topLeftY = topLeftY / resizeScale - dy / resizeScale;
+                width /= resizeScale;
+                height /= resizeScale;
 
-                    const text = `${label} (${(confidence * 100).toFixed(1)}%)`;
-                    const textWidth = ctx.measureText(text).width;
-                    const textHeight = 24; 
+                const color = color_map[label] || 'red';
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.strokeRect(topLeftX, topLeftY, width, height);
 
-                    ctx.fillStyle = color; 
-                    ctx.fillRect(topLeftX, topLeftY - textHeight - 5, textWidth + 10, textHeight + 5);
+                ctx.fillStyle = color;
+                ctx.font = '20px Arial';
 
-                    ctx.fillStyle = 'white'; 
-                    ctx.fillText(text, topLeftX + 5, topLeftY - 5);
+                const text = `${label} (${(confidence * 100).toFixed(1)}%)`;
+                const textWidth = ctx.measureText(text).width;
+                const textHeight = 24;
 
-                    detections.forEach((detection2) => {
-                        if (detection2 !== { box, label, confidence }) {
-                            const center1 = [
-                                topLeftX + width / 2,
-                                topLeftY + height / 2
+                ctx.fillStyle = color;
+                ctx.fillRect(topLeftX, topLeftY - textHeight - 5, textWidth + 10, textHeight + 5);
+
+                ctx.fillStyle = 'white';
+                ctx.fillText(text, topLeftX + 5, topLeftY - 5);
+
+                detections.forEach((detection2) => {
+                    if (detection2 !== { box, label, confidence }) {
+                        const center1 = [
+                            topLeftX + width / 2,
+                            topLeftY + height / 2
+                        ];
+                        const center2 = [
+                            detection2.box[0] / resizeScale - dx / resizeScale + detection2.box[2] / resizeScale / 2,
+                            detection2.box[1] / resizeScale - dy / resizeScale + detection2.box[3] / resizeScale / 2
+                        ];
+
+                        let distancePx = Math.sqrt(
+                            Math.pow(center2[0] - center1[0], 2) +
+                            Math.pow(center2[1] - center1[1], 2)
+                        );
+
+                        let distanceInInches = (distancePx / 96).toFixed(0);
+
+                        if (distanceInInches > 0) {
+                            ctx.beginPath();
+                            ctx.moveTo(center1[0], center1[1]);
+                            ctx.lineTo(center2[0], center2[1]);
+                            ctx.stroke();
+
+                            const midPoint = [
+                                (center1[0] + center2[0]) / 2,
+                                (center1[1] + center2[1]) / 2
                             ];
-                            const center2 = [
-                                detection2.box[0] / resizeScale - dx / resizeScale + detection2.box[2] / resizeScale / 2,
-                                detection2.box[1] / resizeScale - dy / resizeScale + detection2.box[3] / resizeScale / 2
-                            ];
-
-                            let distancePx = Math.sqrt(
-                                Math.pow(center2[0] - center1[0], 2) +
-                                Math.pow(center2[1] - center1[1], 2)
-                            );
-
-                            let distanceInInches = (distancePx / 96).toFixed(0);
-
-                            if (distanceInInches > 0) {
-                                ctx.beginPath();
-                                ctx.moveTo(center1[0], center1[1]);
-                                ctx.lineTo(center2[0], center2[1]);
-                                ctx.stroke();
-
-                                const midPoint = [
-                                    (center1[0] + center2[0]) / 2,
-                                    (center1[1] + center2[1]) / 2
-                                ];
-                                ctx.fillStyle = 'white';
-                                ctx.fillText(`${distanceInInches} inches`, midPoint[0], midPoint[1]);
-                            }
+                            ctx.fillStyle = 'white';
+                            ctx.fillText(`${distanceInInches} inches`, midPoint[0], midPoint[1]);
                         }
-                    });
+                    }
+                });
+            });
+
+            if (detections.length > 0) {
+                const totalObjectsText = `Total Objects: ${detections.length}`;
+                const totalTextWidth = ctx.measureText(totalObjectsText).width;
+                const totalTextHeight = 24;
+
+                ctx.fillStyle = 'white';
+                ctx.fillRect(10, 10, totalTextWidth + 10, totalTextHeight + 5);
+                ctx.fillStyle = 'black';
+                ctx.fillText(totalObjectsText, 15, 30);
+
+                document.getElementById('myChart').style.display = 'flex';
+
+                const totalObjects = detections.length;
+                detections.forEach(({ label }) => {
+                    updateChart(label, totalObjects);
                 });
 
-                if (detections.length > 0) {
-                    const totalObjectsText = `Total Objects: ${detections.length}`;
-                    const totalTextWidth = ctx.measureText(totalObjectsText).width;
-                    const totalTextHeight = 24; 
-
-                    ctx.fillStyle = 'white'; 
-                    ctx.fillRect(10, 10, totalTextWidth + 10, totalTextHeight + 5);
-                    ctx.fillStyle = 'black'; 
-                    ctx.fillText(totalObjectsText, 15, 30);
-
-                    document.getElementById('myChart').style.display = 'flex';
-
-                    const totalObjects = detections.length;
-                    detections.forEach(({ label }) => {
-                        updateChart(label, totalObjects);
-                    });
-
-                    updateTable(detections);
-                }
+                updateTable(detections);
             }
+        }
 
-            function downloadCSV() {
-                const table = document.querySelector('#table-result table');
-                const rows = Array.from(table.querySelectorAll('tr'));
+        function downloadCSV() {
+            const table = document.querySelector('#table-result table');
+            const rows = Array.from(table.querySelectorAll('tr'));
 
-                const csvContent = rows.map(row => {
-                    const cells = Array.from(row.querySelectorAll('th, td')).map(cell => cell.textContent);
-                    return cells.join(',');
-                }).join('\n');
+            const csvContent = rows.map(row => {
+                const cells = Array.from(row.querySelectorAll('th, td')).map(cell => cell.textContent);
+                return cells.join(',');
+            }).join('\n');
 
-                const blob = new Blob([csvContent], { type: 'text/csv' });
-                const url = URL.createObjectURL(blob);
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
 
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'results.csv';
-                a.click();
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'results.csv';
+            a.click();
 
-                URL.revokeObjectURL(url);
-            }
+            URL.revokeObjectURL(url);
+        }
+        function toggleStream() {
+            const video = document.getElementById('videoElement');
+            const placeholder = document.getElementById('videoPlaceholder');
+            const checkbox = document.getElementById('turn_off');
+            const loadingOverlayChild1 = document.getElementById('loadingOverlayChild1');
+            const loadingOverlayChild2 = document.getElementById('loadingOverlayChild2');
 
-            function toggleStream() {
-                const video = document.getElementById('videoElement');
-                const placeholder = document.getElementById('videoPlaceholder');
-                const checkbox = document.getElementById('turn_off');
+            if (checkbox.checked) {
+                video.style.display = 'block';
+                placeholder.style.display = 'none';
 
-                if (checkbox.checked) {
-                    video.style.display = 'block';
-                    video.src = '/video_feed?' + new Date().getTime();
-                    document.getElementById('table-container').style.display = 'block';
-                    document.getElementById('chart-container').style.display = 'block';
-                    document.getElementById('image-container').style.display = 'none';
-                    processingInterval = setInterval(processImage, 1000); 
-                    placeholder.style.display = 'none'; 
-                    video.play(); 
-                } else {
-                    video.style.display = 'none'; 
-                    placeholder.style.display = 'none'; 
-                    document.getElementById('downloadBtn').style.display = 'block';
-                    video.src = ''; 
-                    clearInterval(processingInterval);
-                }
-            }
+                loadingOverlayChild1.style.display = 'flex';
+                loadingOverlayChild2.style.display = 'flex';
 
-            function clearCache() {
-                // Menghapus elemen video dan canvas
-                document.getElementById('videoElement').src = '';
-                document.getElementById('outputCanvas').getContext('2d').clearRect(0, 0, document.getElementById('outputCanvas').width, document.getElementById('outputCanvas').height);
-                
-                // Menghentikan stream jika ada
-                const video = document.getElementById('videoElement');
-                if (video.src) {
-                    video.pause();
-                    video.srcObject = null;
+                function hideLoadingOverlay() {
+                    loadingOverlayChild1.style.display = 'none';
+                    loadingOverlayChild2.style.display = 'none';
                 }
 
-                // Menyembunyikan elemen jika diperlukan
-                document.getElementById('videoPlaceholder').style.display = 'block';
-                document.getElementById('table-container').style.display = 'none';
-                document.getElementById('chart-container').style.display = 'none';
+                video.removeEventListener('load', hideLoadingOverlay);
+                video.removeEventListener('error', hideLoadingOverlay);
+                video.addEventListener('load', hideLoadingOverlay);
+                video.addEventListener('error', hideLoadingOverlay);
 
-                // Kembali ke homepage
-                window.location.href = '{{ url_for("homepage") }}';
+                video.src = '/video_feed?' + new Date().getTime();
+
+                video.onload = hideLoadingOverlay;
+                video.onerror = hideLoadingOverlay;
+
+                document.getElementById('table-container').style.display = 'block';
+                document.getElementById('chart-container').style.display = 'block';
+                document.getElementById('image-container').style.display = 'none';
+                processingInterval = setInterval(processImage, 1000);
+
+            } else {
+                video.style.display = 'none';
+                placeholder.style.display = 'none';
+
+                document.getElementById('downloadBtn').style.display = 'block';
+                video.src = ''; // Stop the video feed
+
+                loadingOverlayChild1.style.display = 'none';
+                loadingOverlayChild2.style.display = 'none';
+
+                clearInterval(processingInterval);
             }
-        </script>
-   </body>
+        }
+
+
+        function clearCache() {
+            // Menghapus elemen video dan canvas
+            document.getElementById('videoElement').src = '';
+            document.getElementById('outputCanvas').getContext('2d').clearRect(0, 0, document.getElementById('outputCanvas').width, document.getElementById('outputCanvas').height);
+
+            // Menghentikan stream jika ada
+            const video = document.getElementById('videoElement');
+            if (video.src) {
+                video.pause();
+                video.srcObject = null;
+            }
+
+            // Menyembunyikan elemen jika diperlukan
+            document.getElementById('videoPlaceholder').style.display = 'block';
+            document.getElementById('table-container').style.display = 'none';
+            document.getElementById('chart-container').style.display = 'none';
+
+            // Kembali ke homepage
+            window.location.href = '{{ url_for("homepage") }}';
+        }
+    </script>
+</body>
+
 </html>
