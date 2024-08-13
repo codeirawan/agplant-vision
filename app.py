@@ -227,6 +227,8 @@ class VideoStreaming(object):
                 self._thread.join()
                 self._thread = None
 
+        self._frame = None  # Clear cached frames
+
         # YouTube download options
         ydl_opts = {
             "quiet": True,
