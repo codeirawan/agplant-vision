@@ -435,54 +435,76 @@
 
             URL.revokeObjectURL(url);
         }
+
+        let isStreaming = false; // Track streaming state
+
         function toggleStream() {
             const video = document.getElementById('videoElement');
+            const canvas = document.getElementById('outputCanvas');
             const videoPlaceholder = document.getElementById('videoPlaceholder');
             const checkbox = document.getElementById('turn_off');
             const loadingOverlayChild1 = document.getElementById('loadingOverlayChild1');
             const loadingOverlayChild2 = document.getElementById('loadingOverlayChild2');
 
-            if (checkbox.checked) {
-                video.style.display = 'block';
-                videoPlaceholder.style.display = 'none';
-
+            function showLoadingOverlay() {
                 loadingOverlayChild1.style.display = 'flex';
                 loadingOverlayChild2.style.display = 'flex';
+            }
 
-                function hideLoadingOverlay() {
-                    loadingOverlayChild1.style.display = 'none';
-                    loadingOverlayChild2.style.display = 'none';
-                }
-
-                video.removeEventListener('load', hideLoadingOverlay);
-                video.removeEventListener('error', hideLoadingOverlay);
-                video.addEventListener('load', hideLoadingOverlay);
-                video.addEventListener('error', hideLoadingOverlay);
-
-                video.src = '/video_feed?' + new Date().getTime();
-
-                video.onload = hideLoadingOverlay;
-                video.onerror = hideLoadingOverlay;
-
-                document.getElementById('table-container').style.display = 'block';
-                document.getElementById('chart-container').style.display = 'block';
-                document.getElementById('image-container').style.display = 'none';
-                processingInterval = setInterval(processImage, 1000);
-
-            } else {
-                video.style.display = 'none';
-                videoPlaceholder.style.display = 'block';
-
-                document.getElementById('downloadBtn').style.display = 'block';
-                video.src = ''; // Stop the video feed
-
+            function hideLoadingOverlay() {
                 loadingOverlayChild1.style.display = 'none';
                 loadingOverlayChild2.style.display = 'none';
+                canvas.style.display = 'none';
+            }
+
+            if (checkbox.checked) {
+                if (!isStreaming) {
+                    // Start streaming
+                    video.style.display = 'block';
+                    videoPlaceholder.style.display = 'none';
+                    showLoadingOverlay();
+
+                    // Set video source and add event listener for when it can play
+                    video.src = '/video_feed?' + new Date().getTime(); // Force refresh the stream
+                    video.addEventListener('canplay', () => {
+                        hideLoadingOverlay();
+                        video.play().catch(error => console.error('Error playing video:', error));
+                    }, { once: true }); // { once: true } ensures the event listener is removed after it's triggered
+
+                    // Add event listener for when the video is paused
+                    video.onload = hideLoadingOverlay;
+                    video.onerror = hideLoadingOverlay;
+
+                    document.getElementById('table-container').style.display = 'block';
+                    document.getElementById('chart-container').style.display = 'block';
+                    document.getElementById('image-container').style.display = 'none';
+                    processingInterval = setInterval(processImage, 1000);
+
+                    isStreaming = true;
+                } else {
+                    // Resume playback if already streaming
+                    video.style.display = 'block';
+                    videoPlaceholder.style.display = 'none';
+                    hideLoadingOverlay();
+
+                    video.play().catch(error => console.error('Error resuming video:', error));
+
+                    processingInterval = setInterval(processImage, 1000);
+                }
+            } else {
+                // Stop streaming
+                video.style.display = 'none';
+                videoPlaceholder.style.display = 'block';
+                document.getElementById('downloadBtn').style.display = 'block';
+
+                video.pause(); // Pause the video
+                hideLoadingOverlay(); // Ensure overlay is hidden
 
                 clearInterval(processingInterval);
+
+                isStreaming = false;
             }
         }
-
 
         function clearCache() {
             // Menghapus elemen video dan canvas
