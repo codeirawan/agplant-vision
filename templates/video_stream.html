@@ -437,14 +437,14 @@
         }
         function toggleStream() {
             const video = document.getElementById('videoElement');
-            const placeholder = document.getElementById('videoPlaceholder');
+            const videoPlaceholder = document.getElementById('videoPlaceholder');
             const checkbox = document.getElementById('turn_off');
             const loadingOverlayChild1 = document.getElementById('loadingOverlayChild1');
             const loadingOverlayChild2 = document.getElementById('loadingOverlayChild2');
 
             if (checkbox.checked) {
                 video.style.display = 'block';
-                placeholder.style.display = 'none';
+                videoPlaceholder.style.display = 'none';
 
                 loadingOverlayChild1.style.display = 'flex';
                 loadingOverlayChild2.style.display = 'flex';
@@ -471,7 +471,7 @@
 
             } else {
                 video.style.display = 'none';
-                placeholder.style.display = 'none';
+                videoPlaceholder.style.display = 'block';
 
                 document.getElementById('downloadBtn').style.display = 'block';
                 video.src = ''; // Stop the video feed
