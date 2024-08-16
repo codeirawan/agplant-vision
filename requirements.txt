@@ -1,26 +1,12 @@
-python-dotenv
 Flask
-flask-socketio
-python-socketio
-python-engineio
-gevent
-eventlet
 Flask-Cors
+flask-socketio
+opencv-python
+opencv-python-headless
+ultralytics
+Pillow
+numpy
 yt_dlp
 pandas
-opencv-python
-numpy
-# mediapipe 
-opencv-python-headless 
-# webcolors 
-ultralytics 
-python-multipart
-gunicorn
 Werkzeug
-Pillow
-PyYAML
-torch
-torchvision
-tqdm
-scikit-learn
-tensorflow
+gunicorn
