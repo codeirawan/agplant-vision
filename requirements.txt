@@ -1,12 +1,10 @@
 Flask
 Flask-Cors
 flask-socketio
-opencv-python
 opencv-python-headless
 ultralytics
 Pillow
 numpy
 yt_dlp
 pandas
-Werkzeug
 gunicorn
