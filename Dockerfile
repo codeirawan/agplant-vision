@@ -1,18 +1,21 @@
-# Use a slim version of the Python image
-FROM python:3.8-slim
+FROM python:3.9-alpine
 
-# Set the working directory
+# Install dependencies
+RUN apk add --no-cache \
+    build-base \
+    libjpeg-turbo-dev \
+    zlib-dev
+
+# Set up the working directory
 WORKDIR /app
 
-# Copy the requirements file and install dependencies
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port that your app will run on
-EXPOSE 8080
-
-# Define the command to run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
+# Expose the port and run the application
+EXPOSE 5000
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
